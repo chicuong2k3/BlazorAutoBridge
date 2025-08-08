@@ -1,0 +1,26 @@
+﻿@page "/"
+@using BlazorAutoBridge.Sample.Client.Contracts
+@using BlazorAutoBridge.Sample.Client.Services;
+@inject IUserService UserService
+
+<PageTitle>Home</PageTitle>
+
+@foreach (var user in users)
+{
+    <div>@user.Username</div>
+    <div>@user.Email</div>
+    <hr />
+}
+
+@code {
+    private List<UserDto> users = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await UserService.GetSingle(2);
+        if (response.ResponseMessage.IsSuccessStatusCode)
+        {
+            users.Add(response.GetContent());
+        }
+    }
+}

@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36109.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{DE91D58B-6F72-4571-AEBD-BB9681EC3B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAutoBridge", "src\BlazorAutoBridge\BlazorAutoBridge.csproj", "{66D2CC69-AD1A-48E0-92EA-1D52B5881465}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAutoBridge.Sample", "samples\BlazorAutoBridge.Sample\BlazorAutoBridge.Sample\BlazorAutoBridge.Sample.csproj", "{880BE5C2-A93E-48D3-91CE-A7BD9274E3E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAutoBridge.Sample.Client", "samples\BlazorAutoBridge.Sample\BlazorAutoBridge.Sample.Client\BlazorAutoBridge.Sample.Client.csproj", "{13C053A9-2A36-4DE9-ACDB-6E1C635CB7EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAutoBridge.Sample.Api", "samples\BlazorAutoBridge.Sample.Api\BlazorAutoBridge.Sample.Api.csproj", "{6F8DEECC-DD5D-47EA-B268-E1EE52FB80DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66D2CC69-AD1A-48E0-92EA-1D52B5881465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D2CC69-AD1A-48E0-92EA-1D52B5881465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D2CC69-AD1A-48E0-92EA-1D52B5881465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D2CC69-AD1A-48E0-92EA-1D52B5881465}.Release|Any CPU.Build.0 = Release|Any CPU
+		{880BE5C2-A93E-48D3-91CE-A7BD9274E3E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{880BE5C2-A93E-48D3-91CE-A7BD9274E3E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{880BE5C2-A93E-48D3-91CE-A7BD9274E3E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{880BE5C2-A93E-48D3-91CE-A7BD9274E3E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13C053A9-2A36-4DE9-ACDB-6E1C635CB7EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13C053A9-2A36-4DE9-ACDB-6E1C635CB7EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13C053A9-2A36-4DE9-ACDB-6E1C635CB7EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13C053A9-2A36-4DE9-ACDB-6E1C635CB7EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8DEECC-DD5D-47EA-B268-E1EE52FB80DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8DEECC-DD5D-47EA-B268-E1EE52FB80DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8DEECC-DD5D-47EA-B268-E1EE52FB80DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8DEECC-DD5D-47EA-B268-E1EE52FB80DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{66D2CC69-AD1A-48E0-92EA-1D52B5881465} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{880BE5C2-A93E-48D3-91CE-A7BD9274E3E0} = {DE91D58B-6F72-4571-AEBD-BB9681EC3B3A}
+		{13C053A9-2A36-4DE9-ACDB-6E1C635CB7EF} = {DE91D58B-6F72-4571-AEBD-BB9681EC3B3A}
+		{6F8DEECC-DD5D-47EA-B268-E1EE52FB80DD} = {DE91D58B-6F72-4571-AEBD-BB9681EC3B3A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D10A09B4-4294-4D3F-85D2-4E6CF1263B7C}
+	EndGlobalSection
+EndGlobal

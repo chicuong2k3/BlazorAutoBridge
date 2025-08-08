@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Profile 1": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\..\\samples\\BlazorAutoBridge.Sample\\BlazorAutoBridge.Sample.Client\\BlazorAutoBridge.Sample.Client.csproj"
+    },
+    "Profile 2": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\..\\samples\\BlazorAutoBridge.Sample\\BlazorAutoBridge.Sample.Client\\BlazorAutoBridge.Sample.Client.csproj"
+    }
+  }
+}
