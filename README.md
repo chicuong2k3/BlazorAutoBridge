@@ -20,13 +20,13 @@ This approach is illustrated in the diagram below:
 Add the NuGet package to both the Client and Server projects:
 
 ```bash
-Install-Package BlazorAutoBridge
+Install-Package BlazorAutoBridge -Version 1.0.0
 ```
 
 Add these Nuget packages to the Client project:
 ```bash
-Install-Package RestEase v1.6.4
-Install-Package RestEase.HttpClientFactory v1.6.4
+Install-Package RestEase -Version 1.6.4
+Install-Package RestEase.HttpClientFactory -Version 1.6.4
 ```
 
 ## Define RestEase API Interfaces 
