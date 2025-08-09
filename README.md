@@ -36,6 +36,7 @@ These interfaces must be defined in both the Client and Server projects, as they
 
 For example, create a file named `IUserService.cs` in both Client and Server projects:
 ```csharp
+[ApiService] // marker Attribute
 public interface IUserApi
 {
 	[Get("users")]
