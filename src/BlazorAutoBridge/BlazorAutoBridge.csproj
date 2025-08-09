@@ -4,6 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<LangVersion>10.0</LangVersion>
 		<IsRoslynComponent>true</IsRoslynComponent>
@@ -12,12 +13,22 @@
 	<PropertyGroup>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<Version>1.0.0</Version>
+		<Version>2.0.0</Version>
 		<AssemblyVersion>$(Version).0</AssemblyVersion>
 		<AssemblyFileVersion>$(Version).0</AssemblyFileVersion>
 		<Authors>Nguyen Chi Cuong</Authors>
 		<Description>A Source Generator that simplifies API integration in Blazor Auto Render Mode.</Description>
+		<RepositoryUrl>https://github.com/chicuong2k3/BlazorAutoBridge</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>blazor;source-generator;restease;api-client;code-generation</PackageTags>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../../README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="$(OutputPath)\$(AssemblyName).dll"
