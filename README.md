@@ -20,7 +20,7 @@ This approach is illustrated in the diagram below:
 Add the NuGet package to both the Client and Server projects:
 
 ```bash
-Install-Package BlazorAutoBridge -Version 1.0.0
+Install-Package BlazorAutoBridge -Version 2.0.0
 ```
 
 Add these Nuget packages to the Client project:
