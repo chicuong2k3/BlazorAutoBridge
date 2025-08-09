@@ -38,6 +38,6 @@ namespace BlazorAutoBridge.DependencyInjection
     }}
 }}";
 
-        context.AddSource("BlazorAutoBridgeExtensions.Client.g.cs", SourceText.From(code, Encoding.UTF8));
+        context.AddSource($"BlazorAutoBridgeExtensions.{code.GetHashCode()}.g.cs", SourceText.From(code, Encoding.UTF8));
     }
 }

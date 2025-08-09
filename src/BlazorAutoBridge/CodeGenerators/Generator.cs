@@ -17,7 +17,9 @@ public class Generator : IIncrementalGenerator
         var provider = context.SyntaxProvider.CreateSyntaxProvider(
             predicate: static (node, _) => IsTarget(node),
             transform: static (ctx, _) => GetSemanticSyntax(ctx)
-        ).Where(x => x != null);
+        ).Where(x => x != null)
+        .Collect()
+        .Select((lists, _) => lists.SelectMany(l => l).ToList());
 
 
         var compilationProvider = context.CompilationProvider;
