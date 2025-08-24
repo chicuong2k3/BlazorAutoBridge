@@ -22,10 +22,16 @@ public class UsersController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetSingle(int id)
     {
+
+        if (id == 100)
+        {
+            return StatusCode(500, "Simulated server error for testing purposes.");
+        }
+
         var user = _users.FirstOrDefault(u => u.Id == id);
         if (user == null)
         {
-            return NotFound();
+            return NotFound($"User with id={id} not found");
         }
 
         return Ok(user);

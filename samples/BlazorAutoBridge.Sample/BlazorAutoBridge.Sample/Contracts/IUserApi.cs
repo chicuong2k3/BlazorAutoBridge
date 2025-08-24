@@ -4,8 +4,7 @@ using RestEase;
 namespace BlazorAutoBridge.Sample.Contracts;
 
 
-[ApiService]
-public interface IUserApi
+public partial interface IUserApi : IApiService
 {
     [Get("users")]
     Task<Response<IEnumerable<UserDto>>> GetAllUsers([Query] int Page, [Query] int PerPage);

@@ -13,6 +13,7 @@ public class Generator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         GenerateHttpResponseAdapter(context);
+        GenerateAllowAnyStatusCodeAttributes(context);
 
         var provider = context.SyntaxProvider.CreateSyntaxProvider(
             predicate: static (node, _) => IsTarget(node),
@@ -61,27 +62,73 @@ public class Generator : IIncrementalGenerator
 
     private static bool IsTarget(SyntaxNode node)
     {
-        return node is InterfaceDeclarationSyntax interfaceDeclarationSyntax
-                    && interfaceDeclarationSyntax.AttributeLists.Any();
+        return node is InterfaceDeclarationSyntax interfaceDeclarationSyntax;
     }
 
     private static void PostInitializationOutput(IncrementalGeneratorPostInitializationContext ctx)
     {
-        GenerateServiceAttribute(ctx);
+        GenerateApiServiceInterface(ctx);
     }
 
-    private static void GenerateServiceAttribute(IncrementalGeneratorPostInitializationContext ctx)
+    private static void GenerateApiServiceInterface(IncrementalGeneratorPostInitializationContext ctx)
     {
         var code = $@"
+using RestEase;
+
 namespace BlazorAutoBridge
 {{
-    internal class ApiServiceAttribute : System.Attribute
+    public interface IApiService
     {{
     }}
+}}
+";
+
+        ctx.AddSource("IApiService.g.cs", SourceText.From(code, Encoding.UTF8));
+    }
+
+
+    private static void GenerateAllowAnyStatusCodeAttributes(IncrementalGeneratorInitializationContext context)
+    {
+        var symbolProvider = context.SyntaxProvider.CreateSyntaxProvider(
+            predicate: static (node, _) => node is InterfaceDeclarationSyntax,
+            transform: static (ctx, _) =>
+            {
+                if (ctx.Node is InterfaceDeclarationSyntax ids)
+                    return ctx.SemanticModel.GetDeclaredSymbol(ids) as INamedTypeSymbol;
+                return null;
+            }
+        ).Where(x => x is not null)!;
+
+        var combined = symbolProvider.Combine(context.CompilationProvider);
+
+        context.RegisterSourceOutput(combined, static (spc, tuple) =>
+        {
+            var (symbol, compilation) = tuple;
+            if (symbol is not INamedTypeSymbol iface) return;
+
+            var apiServiceSymbol = compilation.GetTypeByMetadataName("BlazorAutoBridge.IApiService");
+            if (apiServiceSymbol == null)
+                return;
+
+            if (!iface.AllInterfaces.Contains(apiServiceSymbol, SymbolEqualityComparer.Default))
+                return;
+
+            if (iface.GetAttributes().Any(a => a.AttributeClass?.Name == "AllowAnyStatusCodeAttribute"))
+                return;
+
+            var code = $@"
+using RestEase;
+
+namespace {iface.ContainingNamespace.ToDisplayString()}
+{{
+    [AllowAnyStatusCode]
+    public partial interface {iface.Name} {{ }}
 }}";
 
-        ctx.AddSource("ApiServiceAttribute.g.cs", SourceText.From(code, Encoding.UTF8));
+            spc.AddSource($"{iface.Name}.AllowAnyStatusCode.g.cs", SourceText.From(code, Encoding.UTF8));
+        });
     }
+
 
     private static void GenerateHttpResponseAdapter(IncrementalGeneratorInitializationContext ctx)
     {

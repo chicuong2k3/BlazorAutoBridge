@@ -25,6 +25,7 @@ internal static class ClientRestEaseInterfaceGenerator
         codeBuilder.AppendLine();
         codeBuilder.AppendLine($"namespace {api.GetRestEaseClientNamespace()}");
         codeBuilder.AppendLine("{");
+        codeBuilder.AppendLine("\t[AllowAnyStatusCode]");
         codeBuilder.AppendLine($"\tpublic interface {api.GetRestEaseClientName()}");
         codeBuilder.AppendLine("\t{");
 

@@ -1,5 +1,5 @@
 using BlazorAutoBridge.Sample.Components;
-using BlazorAutoBridge.DependencyInjection;
+using BlazorAutoBridge;
 
 
 var builder = WebApplication.CreateBuilder(args);

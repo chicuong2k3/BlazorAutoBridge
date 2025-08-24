@@ -18,19 +18,23 @@ $@"            .UseWithRestEaseClient<{api.GetRestEaseClientNamespace()}.{api.Ge
         var code = $@"
 using System;
 using System.Net.Http;
-using Microsoft.Extensions.DependencyInjection;
 using RestEase.HttpClientFactory;
+using Microsoft.AspNetCore.Components;
 
-namespace BlazorAutoBridge.DependencyInjection
+namespace BlazorAutoBridge
 {{
     internal static class BlazorAutoBridgeExtensions
     {{
-        public static IServiceCollection AddBlazorAutoBridge(this IServiceCollection services, Action<IServiceProvider, HttpClient> configureClient)
+        public static IServiceCollection AddBlazorAutoBridge(this IServiceCollection services)
         {{
 {scopedRegistrations}
 
             services.AddHttpClient(""RestEaseClient"")
-                .ConfigureHttpClient(configureClient)
+                .ConfigureHttpClient((sp, client) =>
+{{
+    var navigationManager = sp.GetRequiredService<NavigationManager>();
+    client.BaseAddress = new Uri($""{{navigationManager.BaseUri}}forwarders"");
+}})
 {restEaseClients};
 
             return services;
@@ -38,6 +42,6 @@ namespace BlazorAutoBridge.DependencyInjection
     }}
 }}";
 
-        context.AddSource($"BlazorAutoBridgeExtensions.{code.GetHashCode()}.g.cs", SourceText.From(code, Encoding.UTF8));
+        context.AddSource($"BlazorAutoBridgeExtensions.g.cs", SourceText.From(code, Encoding.UTF8));
     }
 }

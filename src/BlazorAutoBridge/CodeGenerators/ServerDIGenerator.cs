@@ -18,10 +18,9 @@ $@"            .UseWithRestEaseClient<{api.Namespace}.{api.Name}>()"));
         var code = $@"
 using System;
 using System.Net.Http;
-using Microsoft.Extensions.DependencyInjection;
 using RestEase.HttpClientFactory;
 
-namespace BlazorAutoBridge.DependencyInjection
+namespace BlazorAutoBridge
 {{
     internal static class BlazorAutoBridgeExtensions
     {{
@@ -40,6 +39,6 @@ namespace BlazorAutoBridge.DependencyInjection
     }}
 }}";
 
-        context.AddSource($"BlazorAutoBridgeExtensions.{code.GetHashCode()}.g.cs", SourceText.From(code, Encoding.UTF8));
+        context.AddSource($"BlazorAutoBridgeExtensions.g.cs", SourceText.From(code, Encoding.UTF8));
     }
 }

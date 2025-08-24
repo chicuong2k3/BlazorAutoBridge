@@ -1,12 +1,8 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using BlazorAutoBridge.DependencyInjection;
+using BlazorAutoBridge;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-builder.Services.AddBlazorAutoBridge((sp, client) =>
-{
-    client.BaseAddress = new Uri($"{builder.HostEnvironment.BaseAddress}forwarders");
-    client.Timeout = TimeSpan.FromSeconds(5);
-});
+builder.Services.AddBlazorAutoBridge();
 
 await builder.Build().RunAsync();

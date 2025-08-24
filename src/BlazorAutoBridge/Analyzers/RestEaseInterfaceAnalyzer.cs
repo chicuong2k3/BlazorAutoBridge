@@ -13,15 +13,25 @@ internal class RestEaseInterfaceAnalyzer
             return Array.Empty<ApiInterfaceInfo>();
         }
 
-        var interfaceSymbol = context.SemanticModel.GetDeclaredSymbol(source);
+        var interfaceSymbol = context.SemanticModel.GetDeclaredSymbol(source) as INamedTypeSymbol;
         if (interfaceSymbol == null)
         {
             return Array.Empty<ApiInterfaceInfo>();
         }
 
-        var attributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName("BlazorAutoBridge.ApiServiceAttribute");
-        if (attributeSymbol == null || !interfaceSymbol.GetAttributes()
-            .Any(attr => attr != null && attr.AttributeClass != null && attr.AttributeClass.Equals(attributeSymbol, SymbolEqualityComparer.Default)))
+        var apiServiceSymbol = context.SemanticModel.Compilation
+            .GetTypeByMetadataName("BlazorAutoBridge.IApiService");
+        if (apiServiceSymbol == null)
+        {
+            return Array.Empty<ApiInterfaceInfo>();
+        }
+
+        if (SymbolEqualityComparer.Default.Equals(interfaceSymbol, apiServiceSymbol))
+        {
+            return Array.Empty<ApiInterfaceInfo>();
+        }
+
+        if (!interfaceSymbol.AllInterfaces.Contains(apiServiceSymbol, SymbolEqualityComparer.Default))
         {
             return Array.Empty<ApiInterfaceInfo>();
         }
@@ -44,21 +54,16 @@ internal class RestEaseInterfaceAnalyzer
             var httpMethodAttr = methodSymbol.GetAttributes()
                 .FirstOrDefault(attr => attr != null && attr.AttributeClass != null
                                     && (attr.AttributeClass.Name.Contains("Get") ||
-                                       attr.AttributeClass.Name.Contains("Post") ||
-                                       attr.AttributeClass.Name.Contains("Put") ||
-                                       attr.AttributeClass.Name.Contains("Delete")));
-
-            if (httpMethodAttr == null)
-            {
-                continue;
-            }
-
-            var route = httpMethodAttr?.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? methodSymbol.Name;
+                                        attr.AttributeClass.Name.Contains("Post") ||
+                                        attr.AttributeClass.Name.Contains("Put") ||
+                                        attr.AttributeClass.Name.Contains("Delete")));
 
             if (httpMethodAttr == null || httpMethodAttr.AttributeClass == null)
             {
                 continue;
             }
+
+            var route = httpMethodAttr.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? methodSymbol.Name;
 
             var methodInfo = new ApiMethodInfo
             {
@@ -72,7 +77,7 @@ internal class RestEaseInterfaceAnalyzer
             foreach (var param in methodSymbol.Parameters)
             {
                 var paramAttr = param.GetAttributes()
-                    .FirstOrDefault(attr => attr != null && attr.AttributeClass != null);
+                    .FirstOrDefault(attr => attr?.AttributeClass != null);
 
                 var restEaseAttribute = paramAttr?.AttributeClass?.Name?.Replace("Attribute", "") ?? string.Empty;
 

@@ -12,15 +12,25 @@
     <hr />
 }
 
+@if (!string.IsNullOrEmpty(message))
+{
+    <div style="color:red">@message</div>
+}
+
 @code {
     private List<UserDto> users = [];
+    private string? message;
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await UserService.GetSingle(2);
+        var response = await UserService.GetSingle(100);
         if (response.ResponseMessage.IsSuccessStatusCode)
         {
             users.Add(response.GetContent());
+        }
+        else
+        {
+            message = $"Error: {await response.ResponseMessage.Content.ReadAsStringAsync()}";
         }
     }
 }
