@@ -13,7 +13,7 @@
 	<PropertyGroup>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<Version>2.0.2</Version>
+		<Version>2.1.0</Version>
 		<AssemblyVersion>$(Version).0</AssemblyVersion>
 		<AssemblyFileVersion>$(Version).0</AssemblyFileVersion>
 		<Authors>Nguyen Chi Cuong</Authors>

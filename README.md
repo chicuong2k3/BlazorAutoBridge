@@ -20,7 +20,7 @@ This approach is illustrated in the diagram below:
 Add the NuGet package to both the Client and Server projects:
 
 ```bash
-Install-Package BlazorAutoBridge -Version 2.0.0
+Install-Package BlazorAutoBridge -Version 2.1.0
 ```
 
 Add these Nuget packages to the Client project:
@@ -30,14 +30,14 @@ Install-Package RestEase.HttpClientFactory -Version 1.6.4
 ```
 
 ## Define RestEase API Interfaces 
-Create your API interfaces that describe the endpoints you want to call using `RestEase`.
+Create your API interfaces that describe the endpoints you want to call using `RestEase`. 
+These interfaces must inherit from `IApiService` and be partial.
 These interfaces will be used by the source generator to create the implementation code.
 These interfaces must be defined in both the Client and Server projects, as they are used to generate the necessary code for API calls.
 
 For example, create a file named `IUserService.cs` in both Client and Server projects:
 ```csharp
-[ApiService] // marker Attribute
-public interface IUserApi
+public partial interface IUserApi : IApiService
 {
 	[Get("users")]
 	Task<IEnumerable<UserDto>> GetAllUsersAsync();
@@ -48,20 +48,16 @@ public interface IUserApi
 In the Client project's `Program.cs`:
 
 ```csharp
-using BlazorAutoBridge.DependencyInjection;
+using BlazorAutoBridge;
 
-builder.Services.AddBlazorAutoBridge((sp, client) =>
-{
-	client.BaseAddress = new Uri($"{builder.HostEnvironment.BaseAddress}forwarders"); // don't change this
-	client.Timeout = TimeSpan.FromSeconds(5);
-});
+builder.Services.AddBlazorAutoBridge();
 ```
 
 ## Server Project Setup
 In the Server project's `Program.cs`:
 
 ```csharp
-using BlazorAutoBridge.DependencyInjection;
+using BlazorAutoBridge;
 
 builder.Services.AddBlazorAutoBridge((sp, client) =>
 {
